@@ -33,4 +33,16 @@ public class LambdaSearchTest {
             $(withText("#" + ISSUE)).should(Condition.exist);
         });
     }
+
+    @Test
+    public void testAnnotatedStep(){
+        SelenideLogger.addListener("allure", new AllureSelenide());
+        WebSteps steps = new WebSteps();
+
+        steps.openMainPage();
+        steps.searchForRepository(REPOSITORY);
+        steps.clickOnRepositoryLink(REPOSITORY);
+        steps.openIssueTab();
+        steps.shouldSeeIssueWithNumber(ISSUE);
+    }
 }
