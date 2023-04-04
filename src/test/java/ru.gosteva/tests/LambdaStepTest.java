@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 import static org.openqa.selenium.By.linkText;
 
-public class StepsTest {
+public class LambdaStepTest {
 
     private static final String REPOSITORY = "eroshenkoam/allure-example";
     private static final int ISSUE = 80;
@@ -21,21 +21,20 @@ public class StepsTest {
     public void testLambdaStep() {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
-        step("Открыть главную страницу", () -> {
-            open("https://github.com/");
-        });
+        step("Открыть главную страницу",
+                () -> open("https://github.com/"));
         step("Найти репозиторий " + REPOSITORY, () -> {
             $(".header-search-input").click();
-            $(".header-search-input").sendKeys("eroshenkoam/allure-example");
+            $(".header-search-input").sendKeys(REPOSITORY);
             $(".header-search-input").submit();
         });
         step("Кликнуть по ссылке репозитория " + REPOSITORY, () -> {
             $(linkText(REPOSITORY)).click();
         });
-        step("Открыть таб Issues",() -> {
+        step("Открыть таб Issues", () -> {
             $("#issues-tab").click();
         });
-        step("Проверить наличие Issue с номером " + ISSUE,() -> {
+        step("Проверить наличие Issue с номером " + ISSUE, () -> {
             $(withText("#" + ISSUE)).should(Condition.exist);
         });
     }
