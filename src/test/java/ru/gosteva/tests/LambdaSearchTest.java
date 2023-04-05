@@ -2,7 +2,9 @@ package ru.gosteva.tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.*;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selectors.withText;
@@ -13,11 +15,17 @@ import static org.openqa.selenium.By.linkText;
 
 public class LambdaSearchTest {
 
-    private static final String REPOSITORY = "eroshenkoam/allure-example";
-    private static final int ISSUE = 80;
+    private static final String REPOSITORY = "egosteva/allure_reports";
+    private static final int ACTION = 12;
 
     @Test
-    public void testLambdaStep() {
+    @Feature("Action в репозитории")
+    @Story("Просмотр action")
+    @Owner("egosteva")
+    @Severity(SeverityLevel.NORMAL)
+    @Link(value = "Testing", url = "https://github.com/")
+    @DisplayName("Просмотр action неавторизованным пользователем")
+    public void actionWithNumberShouldExistLambdaStepTest() {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
         step("Открыть главную страницу",
@@ -28,21 +36,9 @@ public class LambdaSearchTest {
             $(".header-search-input").submit();
         });
         step("Кликнуть по ссылке репозитория " + REPOSITORY, () -> $(linkText(REPOSITORY)).click());
-        step("Открыть таб Issues", () -> $("#issues-tab").click());
-        step("Проверить наличие Issue с номером " + ISSUE, () -> {
-            $(withText("#" + ISSUE)).should(Condition.exist);
+        step("Открыть таб Actions", () -> $("#actions-tab").click());
+        step("Проверить наличие Action с номером " + ACTION, () -> {
+            $(withText("#" + ACTION)).should(Condition.exist);
         });
-    }
-
-    @Test
-    public void testAnnotatedStep(){
-        SelenideLogger.addListener("allure", new AllureSelenide());
-        WebSteps steps = new WebSteps();
-
-        steps.openMainPage();
-        steps.searchForRepository(REPOSITORY);
-        steps.clickOnRepositoryLink(REPOSITORY);
-        steps.openIssueTab();
-        steps.shouldSeeIssueWithNumber(ISSUE);
     }
 }

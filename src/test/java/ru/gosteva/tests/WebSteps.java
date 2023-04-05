@@ -31,14 +31,14 @@ public class WebSteps {
         $(linkText(repo)).click();
     }
 
-    @Step("Открыть таб Issues")
-    public void openIssueTab() {
-        $("#issues-tab").click();
+    @Step("Открыть таб Actions")
+    public void openActionsTab() {
+        $("#actions-tab").click();
     }
 
-    @Step("Проверить наличие Issue с номером {issue}")
-    public void shouldSeeIssueWithNumber(int issue) {
-        $(withText("#" + issue)).should(Condition.exist);
+    @Step("Проверить наличие Action с номером {action}")
+    public void shouldSeeActionWithNumber(int action) {
+        $(withText("#" + action)).should(Condition.exist);
     }
 
     @Attachment(value = "Screenshot", type = "image/png", fileExtension = "png")

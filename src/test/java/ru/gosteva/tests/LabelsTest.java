@@ -7,22 +7,22 @@ import org.junit.jupiter.api.Test;
 public class LabelsTest {
 
     @Test
-    @Feature("Issue в репозитории")
-    @Story("Создание Issue")
+    @Feature("Action в репозитории")
+    @Story("Просмотр action")
     @Owner("egosteva")
-    @Severity(SeverityLevel.BLOCKER)
+    @Severity(SeverityLevel.NORMAL)
     @Link(value = "Testing", url = "https://github.com/")
-    @DisplayName("Создание issue для авторизованного пользователя")
+    @DisplayName("Просмотр action неавторизованным пользователем")
     public void testStaticLabels() {
     }
 
     @Test
     public void testDynamicLabels() {
         Allure.getLifecycle().updateTestCase(
-                t -> t.setName("Создание issue для авторизованного пользователя")
+                t -> t.setName("Просмотр action неавторизованным пользователем")
         );
-        Allure.feature("Issue в репозитории");
-        Allure.story("Создание Issue");
+        Allure.feature("Action в репозитории");
+        Allure.story("Просмотр action");
         Allure.label("owner", "egosteva");
         Allure.label("severity", SeverityLevel.NORMAL.value());
         Allure.link("Testing","https://github.com/");
